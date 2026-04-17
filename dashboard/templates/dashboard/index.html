@@ -188,6 +188,71 @@
   .cursor { display: inline-block; width: 7px; height: 14px; background: var(--sky); margin-left: 2px; vertical-align: middle; animation: blink 1.1s infinite; }
   @keyframes blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
 
+  /* Terminal animation effects */
+  .terminal-line {
+    opacity: 0;
+    animation: lineReveal 0.4s ease-out forwards;
+  }
+  @keyframes lineReveal {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .terminal-line:nth-child(1) { animation-delay: 0.2s; }
+  .terminal-line:nth-child(2) { animation-delay: 0.8s; }
+  .terminal-line:nth-child(3) { animation-delay: 1.4s; }
+  .terminal-line:nth-child(4) { animation-delay: 2.0s; }
+  .terminal-line:nth-child(5) { animation-delay: 2.6s; }
+  .terminal-line:nth-child(6) { animation-delay: 3.2s; }
+  .terminal-line:nth-child(7) { animation-delay: 3.8s; }
+  .terminal-line:nth-child(8) { animation-delay: 4.4s; }
+  .terminal-line:nth-child(9) { animation-delay: 5.0s; }
+  .terminal-line:nth-child(10) { animation-delay: 5.6s; }
+  .terminal-line:nth-child(11) { animation-delay: 6.2s; }
+
+  .result-highlight {
+    background: rgba(125, 211, 252, 0.1);
+    border-left: 2px solid var(--sky);
+    padding-left: 0.75rem;
+    animation: highlightPulse 0.8s ease-out;
+  }
+  @keyframes highlightPulse {
+    from {
+      background: rgba(125, 211, 252, 0.3);
+      box-shadow: 0 0 12px rgba(125, 211, 252, 0.4);
+    }
+    to {
+      background: rgba(125, 211, 252, 0.1);
+      box-shadow: 0 0 0 rgba(125, 211, 252, 0);
+    }
+  }
+
+  /* Loading ellipsis animation */
+  .loading-dots {
+    display: inline-block;
+    animation: loadingDots 1.4s infinite;
+  }
+  @keyframes loadingDots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60%, 100% { content: '...'; }
+  }
+  .loading-dots::after {
+    content: '.';
+    animation: loadingDotsAfter 1.4s infinite;
+  }
+  @keyframes loadingDotsAfter {
+    0%, 20% { content: ''; }
+    40% { content: '.'; }
+    60%, 100% { content: '..'; }
+  }
+
   /* floating glow */
   .glow {
     position: absolute;
@@ -478,17 +543,17 @@
           <span style="margin-left:0.5rem;color:var(--dim);font-size:0.72rem;">prebuypc - analysis</span>
         </div>
         <div class="terminal-body">
-          <div><span class="t-dim">$</span> <span class="t-blue">prebuypc</span> <span class="t-sky">--budget</span> <span class="t-white">1200</span> <span class="t-sky">--use</span> <span class="t-white">"video editing"</span></div>
-          <div style="margin-top:0.5rem;"><span class="t-dim">→ Scanning 3,400+ laptops...</span></div>
-          <div><span class="t-dim">→ Applying ML scoring model...</span></div>
-          <div><span class="t-dim">→ Filtering by region availability...</span></div>
-          <div style="margin-top:0.5rem;color:var(--dim);">────────────────────────────</div>
-          <div style="margin-top:0.5rem;"><span class="t-white">Top Match:</span> <span class="t-sky">ASUS ProArt Studiobook 16</span></div>
-          <div><span style="color:var(--dim);margin-left:1.2rem;">Score: </span><span class="t-white">94</span><span style="color:var(--dim)">/100 · </span><span class="t-green">Great value</span></div>
-          <div><span style="color:var(--dim);margin-left:1.2rem;">Why: </span><span class="t-white">RTX 4060 · OLED display · 3.4 lbs</span></div>
-          <div style="margin-top:0.75rem;"><span class="t-white">Alt #2:</span> <span class="t-sky">Dell XPS 15 9530</span></div>
-          <div><span style="color:var(--dim);margin-left:1.2rem;">Score: </span><span class="t-white">89</span><span style="color:var(--dim)">/100</span></div>
-          <div style="margin-top:0.75rem;"><span class="t-dim">$</span> <span class="cursor"></span></div>
+          <div class="terminal-line"><span class="t-dim">$</span> <span class="t-blue">prebuypc</span> <span class="t-sky">--budget</span> <span class="t-white">1200</span> <span class="t-sky">--use</span> <span class="t-white">"video editing"</span></div>
+          <div class="terminal-line" style="margin-top:0.5rem;"><span class="t-dim">→ Scanning 3,400+ laptops<span class="loading-dots"></span></span></div>
+          <div class="terminal-line"><span class="t-dim">→ Applying ML scoring model<span class="loading-dots"></span></span></div>
+          <div class="terminal-line"><span class="t-dim">→ Filtering by region availability<span class="loading-dots"></span></span></div>
+          <div class="terminal-line" style="margin-top:0.5rem;color:var(--dim);">────────────────────────────</div>
+          <div class="terminal-line result-highlight" style="margin-top:0.5rem;"><span class="t-white">Top Match:</span> <span class="t-sky">ASUS ProArt Studiobook 16</span></div>
+          <div class="terminal-line"><span style="color:var(--dim);margin-left:1.2rem;">Score: </span><span class="t-white">94</span><span style="color:var(--dim)">/100 · </span><span class="t-green">Great value</span></div>
+          <div class="terminal-line"><span style="color:var(--dim);margin-left:1.2rem;">Why: </span><span class="t-white">RTX 4060 · OLED display · 3.4 lbs</span></div>
+          <div class="terminal-line result-highlight" style="margin-top:0.75rem;"><span class="t-white">Recommendation:</span> <span class="t-sky">Dell XPS 15 9530</span></div>
+          <div class="terminal-line"><span style="color:var(--dim);margin-left:1.2rem;">Score: </span><span class="t-white">89</span><span style="color:var(--dim)">/100</span></div>
+          <div class="terminal-line" style="margin-top:0.75rem;"><span class="t-dim">$</span> <span class="cursor"></span></div>
         </div>
       </div>
     </div>
