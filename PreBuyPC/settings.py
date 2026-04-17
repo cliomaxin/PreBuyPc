@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-49$+=#0p^)-^!0c0l_yhp9kip^p!3din%ngav&6^lmgq0gw-3e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -59,7 +59,13 @@ ROOT_URLCONF = 'PreBuyPC.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'accounts' / 'templates',
+            BASE_DIR / 'dashboard' / 'templates',
+            BASE_DIR / 'laptops' / 'templates',
+            BASE_DIR / 'payments' / 'templates',
+            BASE_DIR / 'recommender' / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,4 +125,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'accounts' / 'static',
+    BASE_DIR / 'dashboard' / 'static',
+    BASE_DIR / 'laptops' / 'static',
+    BASE_DIR / 'payments' / 'static',
+    BASE_DIR / 'recommender' / 'static',
+]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
